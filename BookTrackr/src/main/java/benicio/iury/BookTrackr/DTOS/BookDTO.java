@@ -19,5 +19,5 @@ public class BookDTO {
     private Date data;
     private String capaUrl;
     private UserEntity user;
-    private BigDecimal readed;
+    private int readed;
 }

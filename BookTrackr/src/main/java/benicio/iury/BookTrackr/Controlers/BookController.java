@@ -1,12 +1,12 @@
 package benicio.iury.BookTrackr.Controlers;
 
+import java.awt.print.Book;
 import java.util.List;
+
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import benicio.iury.BookTrackr.DTOS.BookDTO;
 import benicio.iury.BookTrackr.Services.BookService;
@@ -31,5 +31,29 @@ public class BookController {
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não conseguimos recuperar seus livros" + e.getMessage());
         }
+    }
+
+    @PostMapping("/create-book")
+    public ResponseEntity<?> createBook(@Valid BookDTO bookDTO){
+        BookDTO bookSaved = bookService.createBook( bookDTO);
+        return ResponseEntity.ok(bookSaved);
+    }
+
+    @GetMapping("/get-book")
+    public ResponseEntity<BookDTO> getBook(@PathVariable long id){
+        BookDTO bookReturned = bookService.getBook(id);
+        return ResponseEntity.ok(bookReturned);
+    }
+
+    @PatchMapping("/edit-book/{id}")
+    public ResponseEntity<BookDTO> editBook(@PathVariable long id, @RequestBody BookDTO bookEdit){
+        BookDTO bookEdited = bookService.editBook(id, bookEdit);
+        return ResponseEntity.ok(bookEdited);
+    }
+
+    @PatchMapping("/read-book/{id}")
+    public ResponseEntity<BookDTO> readBook(@PathVariable long id, @RequestBody int pages){
+        BookDTO bookEdited = bookService.readBook(id, pages);
+        return ResponseEntity.ok(bookEdited);
     }
 }

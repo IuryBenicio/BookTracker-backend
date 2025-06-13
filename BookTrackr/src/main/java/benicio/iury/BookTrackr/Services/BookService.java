@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import benicio.iury.BookTrackr.Exceptions.BookAlreadyExistsException;
+import benicio.iury.BookTrackr.Exceptions.BookMaxPages;
+import benicio.iury.BookTrackr.Exceptions.BookNotFounded;
 import org.springframework.stereotype.Service;
 
 import benicio.iury.BookTrackr.DTOS.BookDTO;
@@ -34,6 +37,63 @@ public class BookService {
                             .map(bookMapper::toDTO)
                             .collect(Collectors.toList());
         return books;
+    }
+
+    public BookDTO createBook(BookDTO bookDTO){
+        boolean bookExist = bookRepository.existsByTitle(bookDTO.getTitle());
+        if(bookExist){
+            throw new BookAlreadyExistsException("Já existe um livro com esse título");
+        }
+        BookEntity bookEntity = bookMapper.toModel(bookDTO);
+        try{
+            BookEntity bookSaved = bookRepository.save(bookEntity);
+            return bookMapper.toDTO(bookSaved);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao salvar o livro no banco de dados", e);
+        }
+
+    }
+
+    public BookDTO getBook(long id){
+        Optional<BookEntity> bookReturned = bookRepository.findById(id);
+        if (bookReturned.isPresent() == false){
+            throw new BookNotFounded("Livro não encontrado");
+        }
+        return bookMapper.toDTO(bookReturned.get());
+    }
+
+    public BookDTO editBook(long id, BookDTO bookEdit){
+        BookEntity bookEntity = bookRepository.findById(id)
+                .orElseThrow(()-> new BookNotFounded("não encontramos seu livro de id: " + id));
+
+        bookEntity.setId(bookEdit.getId());
+        bookEntity.setTitle(bookEdit.getTitle());
+        bookEntity.setAutor(bookEdit.getAutor());
+        bookEntity.setData(bookEdit.getData());
+        bookEntity.setPages(bookEdit.getPages());
+        bookEntity.setUser(bookEdit.getUser());
+        bookEntity.setCapaUrl(bookEdit.getCapaUrl());
+        bookEntity.setReaded(bookEdit.getReaded());
+
+        BookEntity bookSaved = bookRepository.save(bookEntity);
+
+        return bookMapper.toDTO(bookSaved);
+
+    }
+
+    public BookDTO readBook(long id, int pages){
+        BookEntity bookEntity = bookRepository.findById(id)
+                .orElseThrow(()-> new BookNotFounded("não encontramos seu livro de id: " + id));
+
+        if((bookEntity.getPages() - bookEntity.getReaded()) < pages){
+            throw new BookMaxPages("Número de páginas lidas invalidas");
+        }
+
+        bookEntity.setReaded(bookEntity.getReaded() + pages);
+
+        bookRepository.save(bookEntity);
+
+        return bookMapper.toDTO(bookEntity);
     }
 }
 

@@ -12,4 +12,5 @@ import benicio.iury.BookTrackr.Entities.BookEntity;
 @Repository
 public interface BookRepository extends JpaRepository <BookEntity, Long>{
     Optional<List<BookEntity>> findAllByUser_Id(long userId);
+    boolean existsByTitle(String title);
 }

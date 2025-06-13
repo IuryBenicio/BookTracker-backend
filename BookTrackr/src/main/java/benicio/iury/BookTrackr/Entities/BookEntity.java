@@ -1,6 +1,5 @@
 package benicio.iury.BookTrackr.Entities;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -11,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,12 +31,14 @@ public class BookEntity {
     private long id;
 
     @Column(name = "title")
+    @NotBlank(message = "Título do livro é obrigatório")
     private String title;
 
     @Column(name = "autor")
     private String autor;
 
     @Column(name = "pages")
+    @NotBlank(message = "Quantidade de páginas do livro é obrigatório")
     private int pages;
 
     @Column(name = "data")
@@ -50,6 +52,5 @@ public class BookEntity {
     private UserEntity user;
 
     @Column(name = "readed")
-    private BigDecimal readed;
-
+    private int readed = 0;
 }
