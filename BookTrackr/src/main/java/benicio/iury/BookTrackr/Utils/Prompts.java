@@ -10,7 +10,7 @@ public class Prompts {
     public String loadPrompt(String fileName) throws IOException{
         ClassLoader classLoader = getClass().getClassLoader();
 
-        try(var inputStream = classLoader.getResourceAsStream(fileName + ".txt")){
+        try(var inputStream = classLoader.getResourceAsStream("prompts/"+fileName + ".txt")){
             if (inputStream == null){
                 throw  new IOException("Arquivo de prompt não encontrado");
             }
