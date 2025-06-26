@@ -20,7 +20,7 @@ public class BookController {
     }
     
     //Controllers
-    @GetMapping("/getbooks/{id}")
+    @GetMapping("/get-books/{id}")
     public ResponseEntity <?> getBooks(@PathVariable long id){
         try{
             List<BookDTO> books = bookService.getBookList(id);

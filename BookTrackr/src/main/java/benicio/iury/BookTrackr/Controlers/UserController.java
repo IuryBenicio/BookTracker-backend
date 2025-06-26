@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 import benicio.iury.BookTrackr.DTOS.LoginDTO;
 import benicio.iury.BookTrackr.DTOS.UpdateUserDTO;
 import benicio.iury.BookTrackr.DTOS.UserDTO;
-import benicio.iury.BookTrackr.Respositories.UserRespository;
+import benicio.iury.BookTrackr.Respositories.UserRepository;
 import benicio.iury.BookTrackr.Services.UserService;
 
 @RestController
 @RequestMapping("user")
 public class UserController {
 
-    private final UserRespository userRespository;
+    private final UserRepository userRespository;
     private final UserService userService;
 
-    public UserController(UserService userService, UserRespository userRespository) {
+    public UserController(UserService userService, UserRepository userRespository) {
         this.userService = userService;
         this.userRespository = userRespository;
     }

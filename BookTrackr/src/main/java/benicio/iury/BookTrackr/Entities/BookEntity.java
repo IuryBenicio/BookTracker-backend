@@ -26,7 +26,7 @@ import lombok.ToString;
 public class BookEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "_id")
     private long id;
 

@@ -1,6 +1,6 @@
 package benicio.iury.BookTrackr.Infra.Security;
 
-import benicio.iury.BookTrackr.Respositories.UserRespository;
+import benicio.iury.BookTrackr.Respositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +19,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     TokenService tokenService;
 
     @Autowired
-    UserRespository userRespository;
+    UserRepository userRespository;
 
     @Override
     protected void doFilterInternal(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, jakarta.servlet.FilterChain filterChain) throws ServletException, IOException {

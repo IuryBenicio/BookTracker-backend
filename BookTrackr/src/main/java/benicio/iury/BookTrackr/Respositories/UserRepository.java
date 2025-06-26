@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 import benicio.iury.BookTrackr.Entities.UserEntity;
 
 @Repository
-public interface UserRespository extends JpaRepository<UserEntity , Long> {
+public interface UserRepository extends JpaRepository<UserEntity , Long> {
 
-    UserDetails findByEmail(String email);
+    UserEntity findByEmail(String email);
+    UserEntity findByName(String name);
+
 }

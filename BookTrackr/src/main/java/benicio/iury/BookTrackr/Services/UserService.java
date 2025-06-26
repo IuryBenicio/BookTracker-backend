@@ -7,15 +7,15 @@ import org.springframework.stereotype.Service;
 import benicio.iury.BookTrackr.DTOS.UserDTO;
 import benicio.iury.BookTrackr.Entities.UserEntity;
 import benicio.iury.BookTrackr.Mappings.UserMapper;
-import benicio.iury.BookTrackr.Respositories.UserRespository;
+import benicio.iury.BookTrackr.Respositories.UserRepository;
 
 @Service
 public class UserService {
     //Dependecias
-    private final UserRespository userRepository;
+    private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public UserService(UserRespository userRepository, UserMapper userMapper) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }

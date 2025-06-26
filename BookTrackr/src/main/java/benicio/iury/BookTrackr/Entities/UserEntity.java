@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,7 +29,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class UserEntity implements UserDetails {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="_id")
     private long id;
 
@@ -37,6 +38,7 @@ public class UserEntity implements UserDetails {
     private String name;
 
     @NotBlank(message = "campo obrigatório")
+    @Email
     @Column(name="email", unique = true)
     private String email;
 
@@ -51,9 +53,12 @@ public class UserEntity implements UserDetails {
     @Column(name = "imageUrl")
     private String imageUrl;
 
-    public UserEntity(String email, String password){
+    //CONSTRUTOR DO UserEntity
+    public UserEntity(String name,String email, String password){
+        this.name = name;
         this.email = email;
         this.password = password;
+
     }
 
     //UserDetails
