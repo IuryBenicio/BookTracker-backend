@@ -1,5 +1,6 @@
 package benicio.iury.BookTrackr.Entities;
 
+import java.util.Collection;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -15,6 +16,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "tb_user")
@@ -22,10 +25,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "password")
-public class UserEntity {
+public class UserEntity implements UserDetails {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name="_id")
     private long id;
 
@@ -48,4 +51,39 @@ public class UserEntity {
     @Column(name = "imageUrl")
     private String imageUrl;
 
+    public UserEntity(String email, String password){
+        this.email = email;
+        this.password = password;
+    }
+
+    //UserDetails
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
