@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import benicio.iury.BookTrackr.Exceptions.BookAlreadyExistsException;
 import benicio.iury.BookTrackr.Exceptions.BookMaxPages;
 import benicio.iury.BookTrackr.Exceptions.BookNotFounded;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import benicio.iury.BookTrackr.DTOS.BookDTO;
@@ -16,12 +17,10 @@ import benicio.iury.BookTrackr.Respositories.BookRepository;
 
 @Service
 public class BookService {
+    @Autowired
     private BookMapper bookMapper;
+    @Autowired
     private BookRepository bookRepository;
-    public BookService(BookMapper bookMapper, BookRepository bookRepository) {
-        this.bookMapper = bookMapper;
-        this.bookRepository = bookRepository;
-    }
     
     //Services
     public List<BookDTO> getBookList(long id){

@@ -4,6 +4,7 @@ import java.awt.print.Book;
 import java.util.List;
 
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,9 @@ import benicio.iury.BookTrackr.Services.BookService;
 @RestController
 @RequestMapping("book")
 public class BookController {
+    @Autowired
     private BookService bookService;
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
-    }
-    
+
     //Controllers
     @GetMapping("/get-books/{id}")
     public ResponseEntity <?> getBooks(@PathVariable long id){
@@ -33,7 +32,7 @@ public class BookController {
         }
     }
 
-    @PostMapping("/create-book")
+    @PostMapping("/add-book")
     public ResponseEntity<?> createBook(@Valid BookDTO bookDTO){
         BookDTO bookSaved = bookService.createBook( bookDTO);
         return ResponseEntity.ok(bookSaved);
