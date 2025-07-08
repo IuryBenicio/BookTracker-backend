@@ -1,6 +1,6 @@
 package benicio.iury.BookTrackr.Infra.Security;
 
-import benicio.iury.BookTrackr.Respositories.UserRepository;
+import benicio.iury.BookTrackr.Auth_user.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;

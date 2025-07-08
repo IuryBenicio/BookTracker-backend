@@ -1,6 +1,6 @@
 package benicio.iury.BookTrackr.Infra.Security;
 
-import benicio.iury.BookTrackr.Entities.UserEntity;
+import benicio.iury.BookTrackr.Auth_user.entities.UserEntity;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
